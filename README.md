@@ -110,3 +110,7 @@ Start your app by running `npm start`, and start debugging in VS Code by pressin
 
 Having problems with VS Code Debugging? Please see their [troubleshooting guide](https://github.com/Microsoft/vscode-chrome-debug/blob/master/README.md#troubleshooting).
 
+
+<!-- "react": "^16.4.1",
+"react-dom": "^16.4.1",
+"react-scripts": "1.1.4" -->
