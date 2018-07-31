@@ -1,27 +1,86 @@
 import React, { Component } from "react"
-//import { GoogleApiWrapper } from "google-maps-react"
 
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from "google-maps-react"
- 
-export class MapComponent extends Component {
+
+class Map extends Component {
+
+  state = {
+    zoom: 13,
+    mapType: "roadmap",
+    markers: []
+  }
+
+  componentDidMount() {
+    let map = new window.google.maps.Map(document.getElementById('map'), {
+      center: {lat: 53.349805, lng: -6.26031},
+      zoom: this.state.zoom,
+      mapTypeId: this.state.mapType,
+    });
+    console.log(map);
+
+    map.addListener('zoom_changed', () => {
+      this.setState({
+        zoom: map.getZoom(),
+      });
+    });
+    
+    map.addListener('maptypeid_changed', () => {
+      this.setState({
+        maptype: map.getMapTypeId(),
+      });
+    });
+
+    this.addLocationMarkers(map)
+  }
+
+  addLocationMarkers(map) {
+    let locations = this.props.locations
+
+    let markers = [];
+    let i = 0;
+    for (let place of locations) {
+      
+      let position = place.location;
+      let title = place.title;
+
+      let marker = new window.google.maps.Marker({
+        position: position,
+        title: title,
+        animation: window.google.maps.Animation.DROP,
+        id: i,
+        map: map
+      });
+      markers.push(marker);
+      i += 1; //need to fix this
+    }
+    console.log(markers)
+    this.displayMarkers(markers, map)
+  }
+
+  displayMarkers(markers, map) {
+    var bounds = new window.google.maps.LatLngBounds();
+    // Extending the boundaries of the map to fit the markers
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+      bounds.extend(markers[i].position);
+    }
+    map.fitBounds(bounds);
+
+    let newZoom = map.getZoom();
+    if (newZoom !== this.state.zoom) {
+      this.setState(prevState => ({
+        zoom: newZoom
+      }))
+      console.log(this.state.zoom)
+    }
+  }
+
   render() {
     return (
-      <Map google={this.props.google} zoom={14}>
- 
-        <Marker onClick={this.onMarkerClick}
-                name={'Current location'} />
- 
-        <InfoWindow onClose={this.onInfoWindowClose}>
-            <div>
-              <h1>Map</h1>
-            </div>
-        </InfoWindow>
-      </Map>
-    );
+      <div id="map"
+        className="map-content"></div>
+    )
   }
+
 }
 
-
-export default GoogleApiWrapper({
-  apiKey: ("AIzaSyBsMNv1oIY3lW06M-kyzfBDb6sMjqu9Q8U")
-})(MapComponent)
+export default Map;
