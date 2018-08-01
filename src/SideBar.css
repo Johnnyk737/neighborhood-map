@@ -5,18 +5,19 @@
   position: fixed;
   top: 0;
   left: 0;
-  /* transition: transform .3s
-              cubic-bezier(0, .52, 0, 1); */
-  /* overflow: scroll; */
+  transition: transform .3s;
+              /* cubic-bezier(0, .52, 0, 1); */
+  /* overflow: scroll; 
+  transform: translateX(300px);*/
   z-index: 1000;
 }
  
 #sidebar.hide {
-  transform: translate3d(-300px, 0, 0);
+  transform: translateX(-300px);
 }
  
 #sidebar.show {
-  transform: translate3d(0px, 0, 0);
+  transform: translateX(0px);
   overflow: hidden;
 }
  
