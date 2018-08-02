@@ -6,7 +6,6 @@ class Map extends Component {
   state = {
     zoom: 13,
     mapType: "roadmap",
-    markers: []
   }
 
   componentDidMount() {
@@ -15,7 +14,6 @@ class Map extends Component {
       zoom: this.state.zoom,
       mapTypeId: this.state.mapType,
     });
-    console.log(map);
 
     map.addListener('zoom_changed', () => {
       this.setState({
@@ -52,8 +50,8 @@ class Map extends Component {
       markers.push(marker);
       i += 1; //need to fix this
     }
-    console.log(markers)
-    this.displayMarkers(markers, map)
+    this.props.addMarkersToState(markers);
+    this.displayMarkers(markers, map);
   }
 
   displayMarkers(markers, map) {

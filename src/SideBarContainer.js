@@ -35,7 +35,8 @@ class SideBarContainer extends Component {
           handleClick={this.handleClick}
           locations={this.props.locations} />
         <SideBar handleClick={this.handleClick}
-          sideBarVisible={this.state.sideBarVisible}/>
+          sideBarVisible={this.state.sideBarVisible}
+          locations={this.props.locations} />
       </nav>
     )
   }

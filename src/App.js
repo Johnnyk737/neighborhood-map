@@ -17,6 +17,15 @@ class App extends Component {
       {title: 'National Concert Hall', location: {lat: 53.334501, lng: -6.258542}},
       {title: 'Aviva Stadium', location: {lat: 53.335232, lng: -6.228457}}
     ],
+    markers: []
+  }
+
+  addMarkersToState = (marker) => {
+    console.log(marker)
+    this.setState({ 
+      markers: marker //This isn't working
+    })
+    console.log(this.state)
   }
 
   render() {
@@ -37,7 +46,8 @@ class App extends Component {
               </div>
             </header>
             <Map 
-              locations={this.state.locations}/>
+              locations={this.state.locations}
+              addMarkersToState={this.addMarkersToState} />
           </main>
         </div>
       </div>
