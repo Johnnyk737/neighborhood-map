@@ -35,6 +35,8 @@
   padding: 22px 17px;
   color: #fff;
   position: absolute;
+  z-index: 1;
+  top: 0;
 }
 
 .sidebar-close {
@@ -48,10 +50,11 @@
 
 .sidebar-container {
   margin: 25px 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 .sidebar-filter {
-  width: 205px;
+  width: 240px;
   height: 20px;
 }
 
@@ -62,4 +65,18 @@
 .filter-button {
   height: 26px;
   width: 50px;
+}
+
+ol {
+  list-style: none;
+  display: inline;
+}
+
+li {
+  display: block;
+  padding: 10px;
+}
+
+li:hover {
+  background-color: rgb(72, 99, 129);
 }

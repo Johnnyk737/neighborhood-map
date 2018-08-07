@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { escapeRegExp } from 'escape-string-regexp'
-import serializeForm from 'form-serialize'
+import escapeRegExp from 'escape-string-regexp'
 //import "./SideBar.css";
  
 class SideBar extends Component {
 
-  state = {
-    filterLocations: [],
-    filterVal: ''
+  constructor(props) {
+    super(props)
+    this.state = {
+      filterLocations: []
+    }
   }
 
   // componentDidUpdate() {
@@ -16,29 +17,37 @@ class SideBar extends Component {
   //     locations: this.props.locations
   //   }))
   // }
+  componentDidMount() {
+    this.setState({filterLocations: this.props.locations});
+  }
 
-  filterLocations(e) {
+  updateLocations(filter) {
+    console.log(filter)
+    if (filter) {
+      let filterLocations = this.filterLocations(filter);
+      this.setState({filterLocations: filterLocations})   
+    } else {
+      this.setState({filterLocations: this.props.locations})
+    }
+  }
 
-    e.preventDefault();
+
+  filterLocations(filterVal) {
+
     //need to change state for the locations.
     //filter down 
     let { locations } = this.props;
-    let queryResults = [];
-    let filterVal = document.forms["myForm"].filterVal.value
-    this.setState({filterVal: filterVal.trim()})
+    filterVal = filterVal.trim();
 
-    if (filterVal) {
-      const match = new RegExp(escapeRegExp(this.state.filterVal), 'i') //errors
-      let queryResults = locations.filter(location => match.test(locations.title))
-    } else {
-      queryResults = locations;
-    }
-    console.log(queryResults);
+    const match = new RegExp(escapeRegExp(filterVal), 'i') //errors
+    let queryResults = locations.filter(location => match.test(location.title))
+
+    return queryResults;
   }
 
   render() {
     var visibility = "hide";
-    console.log(this.state.locations)
+    let { filterLocations } = this.state
  
     if (this.props.sideBarVisible) {
       visibility = "show";
@@ -53,16 +62,24 @@ class SideBar extends Component {
           onMouseDown={this.props.handleClick}>X</a>
         <div className="sidebar-container">
           <h2>Dublin Locations</h2>
-          <form id="myForm" 
-            onSubmit={event => this.filterLocations(event)}>
             <input className="sidebar-filter"
               placeholder="Sight Location"
               id="filterVal"
               name="filter"
-              type="text" />
-            <button className="filter-button"
-              type="submit">Filter</button>
-          </form>
+              type="text"
+              tabIndex="0"
+              onChange={event => this.updateLocations(event.target.value)} />
+
+          <div className="location-list">
+            <ol>
+              {filterLocations.map((location) => (
+                <li key={location.id}
+                    >
+                  {location.title}
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     );

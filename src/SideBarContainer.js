@@ -3,6 +3,9 @@ import SideBarButton from './SideBarButton'
 import SideBar from './SideBar'
 import './SideBar.css'
 
+//Had to refactor this to be a part of the Map component.  Couldn't figure out how to get the click actions to work properly
+//in my head.  Need to help the map display now
+
 class SideBarContainer extends Component {
   constructor(props, context) {
     super(props, context);
@@ -24,7 +27,6 @@ class SideBarContainer extends Component {
   handleClick(e) {
     this.toggleSideBar();
 
-    console.log("side bar button clicked");
     e.stopPropagation();
   }
 

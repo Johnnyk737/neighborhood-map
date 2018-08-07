@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import SideBarContainer from './SideBarContainer'
 
 
 class Map extends Component {
@@ -69,13 +70,39 @@ class Map extends Component {
         zoom: newZoom
       }))
       console.log(this.state.zoom)
+      /* <SideBarContainer
+            locations={this.props.locations} /> */
     }
   }
 
+  /*
+  Functions for handling the click event on the locations in the side bar
+
+  selectLocation() {
+    //center on page, open infowindow with information about the location
+  }
+
+  populateInfoWindow() {
+    //populates infowindow
+  }
+
+  getWikiAPI() {
+    //Get wiki api info about location
+  }
+
+  getOtherAPI() {
+    //other api to be decided
+  }
+  */
+
   render() {
     return (
-      <div id="map"
-        className="map-content"></div>
+      <div>
+        <SideBarContainer
+            locations={this.props.locations} />
+        <div id="map" className="map-content">
+        </div>
+      </div> 
     )
   }
 
