@@ -80,6 +80,7 @@ class Map extends Component {
 
   selectLocation() {
     //center on page, open infowindow with information about the location
+    map.setCenter(marker.getPosition());
   }
 
   populateInfoWindow() {
