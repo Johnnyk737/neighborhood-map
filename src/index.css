@@ -9,49 +9,6 @@ html, body {
   font-weight: 300;
 }
 
-
-/* .pac-card {
-  margin: 10px 10px 0 0;
-  border-radius: 2px 0 0 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  background-color: #fff;
-  font-family: Roboto;
-}
-
-#pac-container {
-  padding-bottom: 12px;
-  margin-right: 12px;
-}
-
-.pac-controls {
-  display: inline-block;
-  padding: 5px 11px;
-}
-
-.pac-controls label {
-  font-family: Roboto;
-  font-size: 13px;
-  font-weight: 300;
-}
-
-#pac-input {
-  background-color: #fff;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 300;
-  margin-left: 12px;
-  padding: 0 11px 0 13px;
-  text-overflow: ellipsis;
-  width: 400px;
-}
-
-#pac-input:focus {
-  border-color: #4d90fe;
-} */
-
 #title {
   color: #fff;
   background-color: #4d90fe;
@@ -78,8 +35,8 @@ main {
 }
 
 header {
-  height: 7%;
-  line-height: 60px;
+  height: 60px;
+  /* line-height: 60px; */
   width: 100%;
   /* position: relative; */
   /* display: inline-block; */
@@ -89,7 +46,7 @@ header {
 .header-title {
   /* padding: 17px; */
   font-size: 1.1em;
-  vertical-align: middle;
+  /* vertical-align: middle; */
   text-align: center;
   color: #fff;
   font-weight: bold;
@@ -121,3 +78,28 @@ header {
 }
 
 /* side panel color #9FB4C7 or #81C3D7 */
+
+
+
+
+
+
+/* Mobile */
+
+@media screen and (max-width: 540px) and (max-height: 850px) {
+
+  .map-content {
+    height: 93%;
+    top: 7%;
+  }
+
+}
+
+@media screen and (max-width: 540px) and (max-height: 650px) {
+
+  .map-content {
+    height: 91%;
+    top: 9%;
+  }
+
+}
