@@ -7,6 +7,7 @@ class Map extends Component {
   state = {
     zoom: 13,
     mapType: "roadmap",
+    markers: [],
   }
 
   componentDidMount() {
@@ -49,9 +50,18 @@ class Map extends Component {
         map: map
       });
       markers.push(marker);
-      i += 1; //need to fix this
+      i += 1; 
     }
-    this.props.addMarkersToState(markers);
+    //this.props.addMarkersToState(markers);
+    if(markers) {
+      this.setState((prevState, markers) => {
+        return {markers: markers} ///not
+      })
+    }
+    
+
+    console.log(this.state.markers);
+
     this.displayMarkers(markers, map);
   }
 

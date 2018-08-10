@@ -35,8 +35,8 @@ main {
 }
 
 header {
-  height: 60px;
-  /* line-height: 60px; */
+  height: 7%;
+  line-height: 60px;
   width: 100%;
   /* position: relative; */
   /* display: inline-block; */
