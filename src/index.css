@@ -38,7 +38,7 @@ header {
   height: 7%;
   line-height: 60px;
   width: 100%;
-  /* position: relative; */
+  position: relative;
   /* display: inline-block; */
   background-color: #16425B
 }
@@ -53,6 +53,11 @@ header {
   font-family: 'Istok Web', sans-serif;
 }
 
+.header-open {
+  width: calc(100% - 300px);
+  left: 300px;
+}
+
 .map {
   position: relative;
   overflow: hidden;
@@ -62,7 +67,15 @@ header {
   height: 93%;
   top: 7%;
   right: 0;
+}
+
+.map-expand {
   width: 100%;
+}
+
+.map-close {
+  width: calc(100% - 300px);
+  left: 300px;
 }
 
 #infowindow-content .title {

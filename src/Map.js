@@ -1,18 +1,20 @@
 import React, { Component } from "react"
 import SideBarContainer from './SideBarContainer'
 
-
+let markers = [];
+let map = [];
+let infoWindow;
 class Map extends Component {
 
   state = {
-    zoom: 13,
+    zoom: 14,
     mapType: "roadmap",
     markers: [],
   }
 
   componentDidMount() {
-    let map = new window.google.maps.Map(document.getElementById('map'), {
-      center: {lat: 53.349805, lng: -6.26031},
+    map = new window.google.maps.Map(document.getElementById('map'), {
+      center: {lat: 53.343598, lng: -6.260985},
       zoom: this.state.zoom,
       mapTypeId: this.state.mapType,
     });
@@ -32,10 +34,10 @@ class Map extends Component {
     this.addLocationMarkers(map)
   }
 
-  addLocationMarkers(map) {
+  addLocationMarkers = (map) => {
     let locations = this.props.locations
 
-    let markers = [];
+    //let markers = [];
     let i = 0;
     for (let place of locations) {
       
@@ -53,11 +55,15 @@ class Map extends Component {
       i += 1; 
     }
     //this.props.addMarkersToState(markers);
+
     if(markers) {
-      this.setState((prevState, markers) => {
-        return {markers: markers} ///not
-      })
+      console.log(markers)
+      this.setState(prevState => ({
+        markers: markers ///not working properly, I don't think
+      }))
     }
+
+    // this.state = {markers: markers};
     
 
     console.log(this.state.markers);
@@ -72,7 +78,7 @@ class Map extends Component {
       markers[i].setMap(map);
       bounds.extend(markers[i].position);
     }
-    map.fitBounds(bounds);
+    //map.fitBounds(bounds);
 
     let newZoom = map.getZoom();
     if (newZoom !== this.state.zoom) {
@@ -80,23 +86,49 @@ class Map extends Component {
         zoom: newZoom
       }))
       console.log(this.state.zoom)
-      /* <SideBarContainer
-            locations={this.props.locations} /> */
     }
   }
 
   /*
   Functions for handling the click event on the locations in the side bar
+  */
 
-  selectLocation() {
-    //center on page, open infowindow with information about the location
-    map.setCenter(marker.getPosition());
-  }
-
-  populateInfoWindow() {
+  populateInfoWindow = () => {
     //populates infowindow
+    //returns string of stuff
+
+    let infoWindow = new window.google.maps.InfoWindow({
+      content: "Oh hello"
+    })
+    return infoWindow
   }
 
+  selectLocation = (location) => {
+    //center on page, open infowindow with information about the location
+
+    if(infoWindow) {
+      infoWindow.close()
+    }
+
+    console.log(markers)
+    let currMarker;
+    markers.forEach(marker => {
+      if(marker.title === location) {
+        currMarker = marker;
+      }
+    })
+
+    //center on map
+    map.setCenter(currMarker.getPosition());
+    //create info window
+
+    infoWindow = this.populateInfoWindow();
+
+    infoWindow.open(map, currMarker);
+  }
+
+  
+ /*
   getWikiAPI() {
     //Get wiki api info about location
   }
@@ -110,8 +142,10 @@ class Map extends Component {
     return (
       <div>
         <SideBarContainer
-            locations={this.props.locations} />
-        <div id="map" className="map-content">
+            locations={this.props.locations} 
+            updateDisplay={this.props.updateDisplay} 
+            selectLocation={this.selectLocation}/>
+        <div id="map" className="map-content map-expand">
         </div>
       </div> 
     )

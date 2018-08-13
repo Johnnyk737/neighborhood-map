@@ -28,17 +28,33 @@ class App extends Component {
     console.log(this.state)
   }
 
+  updateDisplay = (modifier) => {
+    let header = document.getElementById('header');
+    let map = document.getElementById('map');
+    if (modifier) {
+      header.classList.toggle("header-open");
+      map.classList.toggle("map-expand");
+      map.classList.toggle("map-close");
+    } else {
+      header.classList.toggle("header-open");
+      map.classList.toggle("map-close");
+      map.classList.toggle("map-expand");
+    }
+
+  }
+
   render() {
     return (
       <div id='app'>
-            <header>
+            <header id="header">
               <div className="header-title">
                 Neighborhood Map
               </div>
             </header>
             <Map 
               locations={this.state.locations}
-              addMarkersToState={this.addMarkersToState} />
+              addMarkersToState={this.addMarkersToState} 
+              updateDisplay={this.updateDisplay} />
 
       </div>
     ); 

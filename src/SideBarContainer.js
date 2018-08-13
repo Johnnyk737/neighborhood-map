@@ -22,12 +22,15 @@ class SideBarContainer extends Component {
     this.setState(prevState => ({
       sideBarVisible: !this.state.sideBarVisible
     }));
+
+    let modifier = this.state.sideBarVisible ? false : true;
+    this.props.updateDisplay(modifier);
   }
 
   handleClick(e) {
     this.toggleSideBar();
 
-    e.stopPropagation();
+    e.preventDefault();
   }
 
   render() {
@@ -38,7 +41,8 @@ class SideBarContainer extends Component {
           locations={this.props.locations} />
         <SideBar handleClick={this.handleClick}
           sideBarVisible={this.state.sideBarVisible}
-          locations={this.props.locations} />
+          locations={this.props.locations}
+          selectLocation={this.props.selectLocation} />
       </nav>
     )
   }

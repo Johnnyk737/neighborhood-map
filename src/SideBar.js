@@ -45,6 +45,11 @@ class SideBar extends Component {
     return queryResults;
   }
 
+  clickLocation(location) {
+    console.log(location)
+    this.props.selectLocation(location)
+  }
+
   render() {
     var visibility = "hide";
     let { filterLocations } = this.state
@@ -74,7 +79,7 @@ class SideBar extends Component {
             <ol>
               {filterLocations.map((location) => (
                 <li key={location.id}
-                    >
+                    onMouseDown={() => this.clickLocation(location.title)}>
                   {location.title}
                 </li>
               ))}
