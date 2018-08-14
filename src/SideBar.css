@@ -81,3 +81,19 @@ li:hover {
   background-color: rgb(72, 99, 129);
   cursor: pointer;
 }
+
+@media screen and (max-width: 540px) {
+
+  #sidebar {
+    width: 88%;
+  }
+
+  #sidebar.hide {
+    transform: translateX(-100%);
+  }
+   
+  .sidebar-container {
+    text-align: center;
+  }
+
+}

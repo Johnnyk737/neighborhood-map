@@ -93,16 +93,6 @@ class Map extends Component {
   Functions for handling the click event on the locations in the side bar
   */
 
-  populateInfoWindow = () => {
-    //populates infowindow
-    //returns string of stuff
-
-    let infoWindow = new window.google.maps.InfoWindow({
-      content: "Oh hello"
-    })
-    return infoWindow
-  }
-
   selectLocation = (location) => {
     //center on page, open infowindow with information about the location
 
@@ -122,17 +112,49 @@ class Map extends Component {
     map.setCenter(currMarker.getPosition());
     //create info window
 
-    infoWindow = this.populateInfoWindow();
+    infoWindow = this.populateInfoWindow(currMarker);
 
     infoWindow.open(map, currMarker);
   }
 
-  
- /*
-  getWikiAPI() {
-    //Get wiki api info about location
-  }
+  populateInfoWindow = (marker) => {
+    //populates infowindow
+    //returns string of stuff
 
+    let infoWindow = new window.google.maps.InfoWindow({
+      maxWidth: 300
+    });
+
+    let wikiData = this.getWikiAPI(marker.title)
+    console.log(wikiData)
+
+    let content = '<div id="content">'+
+    '<div id="siteNotice">'+
+    '</div>'+
+    `<h1 id="firstHeading" class="firstHeading">${wikiData[0]}</h1>`+
+    '<div id="bodyContent">'+
+    `<p>${wikiData[2]}</p>`+
+    '</div>'+
+    '</div>';
+
+    infoWindow.setContent(content);
+    return infoWindow
+  }
+ 
+  getWikiAPI = (search) => {
+    //Get wiki api info about location
+    let wikiData;
+    fetch("https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=" + search + "&limit=5")
+    .then(function(response) {
+      return response.json()
+    }).then(function(data) {
+    console.log(data);
+    return data;
+    })
+    // console.log(wikiData)
+    // return wikiData;
+  }
+/*
   getOtherAPI() {
     //other api to be decided
   }
