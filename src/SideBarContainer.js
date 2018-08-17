@@ -42,7 +42,8 @@ class SideBarContainer extends Component {
         <SideBar handleClick={this.handleClick}
           sideBarVisible={this.state.sideBarVisible}
           locations={this.props.locations}
-          selectLocation={this.props.selectLocation} />
+          selectLocation={this.props.selectLocation} 
+          updateMarkers={this.props.updateMarkers} />
       </nav>
     )
   }

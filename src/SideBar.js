@@ -25,8 +25,10 @@ class SideBar extends Component {
     console.log(filter)
     if (filter) {
       let filterLocations = this.filterLocations(filter);
+      this.props.updateMarkers(filterLocations)
       this.setState({filterLocations: filterLocations})   
     } else {
+      this.props.updateMarkers(this.props.locations)
       this.setState({filterLocations: this.props.locations})
     }
   }
@@ -36,6 +38,7 @@ class SideBar extends Component {
 
     //need to change state for the locations.
     //filter down 
+    //let { filterLocations } = this.state;
     let { locations } = this.props;
     filterVal = filterVal.trim();
 
@@ -46,7 +49,6 @@ class SideBar extends Component {
   }
 
   clickLocation(location) {
-    console.log(location)
     this.props.selectLocation(location)
   }
 
@@ -60,25 +62,27 @@ class SideBar extends Component {
  
     return (
       <div id="sidebar"
-          //  onMouseDown={this.props.handleClick} 
+          aria-label="Side bar Window"
            className={visibility}>
-        <a href="#"
+        <button
           className="sidebar-close"
-          onMouseDown={this.props.handleClick}>X</a>
+          onMouseDown={this.props.handleClick}>X</button>
         <div className="sidebar-container">
           <h2>Dublin Locations</h2>
             <input className="sidebar-filter"
               placeholder="Sight Location"
               id="filterVal"
+              role="Filter"
               name="filter"
               type="text"
               tabIndex="0"
               onChange={event => this.updateLocations(event.target.value)} />
 
-          <div className="location-list">
+          <div className="location-list" aria-label="Location List">
             <ol>
               {filterLocations.map((location) => (
                 <li key={location.id}
+                    aria-label={location.title}
                     onMouseDown={() => this.clickLocation(location.title)}>
                   {location.title}
                 </li>
