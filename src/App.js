@@ -15,7 +15,10 @@ class App extends Component {
     ],
   }
 
-
+  /**
+   * Update the map and header display when sidebar is opened or closed
+   * @param {boolean} modifier  
+   */
   updateDisplay = (modifier) => {
     let header = document.getElementById('header');
     let map = document.getElementById('map');

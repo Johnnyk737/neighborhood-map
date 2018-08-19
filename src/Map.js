@@ -28,7 +28,9 @@ class Map extends Component {
     );
   }
     
-
+  /**
+   * Initialize the Google Maps object  
+   */
   initMap = () => {
     map = new window.google.maps.Map(document.getElementById('map'), {
       center: {lat: 53.343598, lng: -6.260985},
@@ -56,6 +58,12 @@ class Map extends Component {
     this.addLocationMarkers(map)
   }
 
+  /**
+   * Add the markers to the map.  Creating event handlers for the markers
+   * Also used to redraw the markers on the map after filtering
+   * @param {Maps object} map
+   * @param {object} locations - Either the state filteredLocations or a passed in locations object.
+   */
   addLocationMarkers = (map, locations = this.state.filteredLocations) => {
     //let locations = this.state.filteredLocations
 
@@ -111,6 +119,11 @@ class Map extends Component {
     }
   }
 
+  /**
+   * Populate the info window for a marker on the map
+   * @param {Marker object} marker
+   * @param {InfoWindow object} infoWindow 
+   */
   populateInfoWindow = (marker, infoWindow) => {
 
     const {map} = this.state;
@@ -141,7 +154,11 @@ class Map extends Component {
     })
   }
 
-
+  /**
+   * Handler for when a location is selected.
+   * Closes all aopen infowindows on map
+   * @param {object} location - Single location object  
+   */
   selectLocation = (location) => {
     let {allLocations} = this.state
 
@@ -155,6 +172,11 @@ class Map extends Component {
     })
   }
 
+  /**
+   * Handler for the filter list.
+   * Adds/Removes markers from the map based on the filter query
+   * @param {object} filterLocations - Filtered list of location objects  
+   */
   updateMarkers = (filterLocations) => {
     let {filteredLocations} = this.state
 

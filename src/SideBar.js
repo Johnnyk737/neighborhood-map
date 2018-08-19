@@ -11,16 +11,14 @@ class SideBar extends Component {
     }
   }
 
-  // componentDidUpdate() {
-  //   console.log(this.props.locations)
-  //   this.setState(prevState => ({
-  //     locations: this.props.locations
-  //   }))
-  // }
   componentDidMount() {
     this.setState({filterLocations: this.props.locations});
   }
 
+  /**
+   * Updates location state and calls into updateMarkers from props
+   * @param {string} filter - Query string for the filter  
+   */
   updateLocations(filter) {
     console.log(filter)
     if (filter) {
@@ -33,12 +31,12 @@ class SideBar extends Component {
     }
   }
 
-
+  /**
+   * Filters the locations based on query 
+   * @param {string} filterVal - Query string for the filter  
+   */
   filterLocations(filterVal) {
 
-    //need to change state for the locations.
-    //filter down 
-    //let { filterLocations } = this.state;
     let { locations } = this.props;
     filterVal = filterVal.trim();
 
@@ -48,6 +46,10 @@ class SideBar extends Component {
     return queryResults;
   }
 
+  /**
+   * Handler for clicking the location in the sidebar
+   * @param {object} location  
+   */
   clickLocation(location) {
     this.props.selectLocation(location)
   }
