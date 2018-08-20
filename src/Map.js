@@ -27,6 +27,10 @@ class Map extends Component {
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyDAEUd21Zb3JP5a9onPB8aBVyjvLRiJzoQ&libraries=places&callback=initMap'
     );
   }
+
+  onMapsError = () => {
+    window.alert("Something went wrong while loading the map.  Please try again.")
+  }
     
   /**
    * Initialize the Google Maps object  
@@ -68,6 +72,7 @@ class Map extends Component {
     //let locations = this.state.filteredLocations
 
     let allLocations = [];
+    let markers = [];
   
     let i = 0;
     locations.forEach((place) => {
@@ -84,21 +89,32 @@ class Map extends Component {
           map: map
         });
 
+        markers.push(marker)
+
         let infoWindow = new window.google.maps.InfoWindow({
           maxWidth: 300
         });
+
+        window.google.maps.event.addListener(infoWindow, 'closeclick', function() {
+          marker.setAnimation(-1)
+        })
 
         place.infoWindow = infoWindow
 
         infoWindows.push(infoWindow)
 
         window.google.maps.event.addListener(marker, 'click', () => {
+
+          markers.forEach(marker => {
+            marker.setAnimation(-1)
+          })
+
           map.setCenter(marker.getPosition())
           // Close all other info windows when the user opens a new one.
           infoWindows.forEach( (infoWindow) => {
             infoWindow.close();
           });
-
+          marker.setAnimation(window.google.maps.Animation.BOUNCE)
           this.populateInfoWindow(marker, infoWindow);
         });
 
@@ -132,12 +148,12 @@ class Map extends Component {
 
     infoWindow.open(map, marker); 
     infoWindow.setContent('Fetching location information...');
-
-
+    
     let wikiData = fetch("https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=" + marker.title + "&limit=1&redirects=resolve")
     .then(function(response) {
       return response.json()
     }).catch((error) => {
+      window.alert("Something went wrong while getting the information.  Please try again.")
       console.log(error);
     });
 
@@ -149,24 +165,31 @@ class Map extends Component {
 
       // Combine the content.
       let content = `<div role="dialog" tabindex="0">${wikiTitle}${wikiDescription}${wikiLink}</div>`;
-
       infoWindow.setContent(content);
+    })
+    .catch(error => {
+      window.alert("Something went wrong while getting the information.  Please try again.")
+      console.log(error);
     })
   }
 
   /**
    * Handler for when a location is selected.
-   * Closes all aopen infowindows on map
+   * Closes all open infowindows on map
    * @param {object} location - Single location object  
    */
   selectLocation = (location) => {
     let {allLocations} = this.state
 
     allLocations.forEach((place)=>{
-      if (place.title === location){
+      
+      place.marker.setAnimation(-1) /// Need to set to -1 because it works better than null.  Special thanks to https://stackoverflow.com/questions/20328326/google-maps-api-v3-markers-dont-always-continuously-bounce
+      if (place.title === location) {
         infoWindows.forEach( (infoWindow) => {
           infoWindow.close();
+          
         });
+        place.marker.setAnimation(window.google.maps.Animation.BOUNCE)
         this.populateInfoWindow(place.marker, place.infoWindow);
       }
     })
@@ -211,6 +234,7 @@ class Map extends Component {
     var script = window.document.createElement("script");
     script.src = src;
     script.async = true;
+    script.onerror = () => {this.onMapsError()}
     ref.parentNode.insertBefore(script, ref);
 }
 

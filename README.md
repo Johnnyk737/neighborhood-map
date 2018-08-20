@@ -1,7 +1,7 @@
 # Neighborhood Map Project
 
 ## Overview
-This web app shows different tourist places to visit in Dublin, Ireland.  I am using the Google Maps API to show the different locations on a map and I am using the Wikipedia API to show some information about each location.  There is a sidebar menu that shows the locations and includes a filtering functionality for the locations.
+This web app shows different tourist places to visit in Dublin, Ireland.  I am using the Google Maps API to show the different locations on a map and I am using the Wikipedia API to show some information about each location.  There is a sidebar menu that shows the locations and includes a filtering functionality for the locations.  All keyboard events are handled using the 'enter' button.
 
 ## Install instructions
   - If in development environment

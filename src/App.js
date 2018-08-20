@@ -35,7 +35,7 @@ class App extends Component {
 
   render() {
     return (
-      <div id='app'>
+      <main id='app'>
             <header id="header">
               <div className="header-title">
                 Neighborhood Map
@@ -45,7 +45,7 @@ class App extends Component {
               locations={this.state.locations}
               addMarkersToState={this.addMarkersToState} 
               updateDisplay={this.updateDisplay} />
-      </div>
+      </main>
     ); 
   } 
 }

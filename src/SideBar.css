@@ -6,9 +6,6 @@
   top: 0;
   left: 0;
   transition: transform .3s;
-              /* cubic-bezier(0, .52, 0, 1); */
-  /* overflow: scroll; 
-  transform: translateX(300px);*/
   z-index: 1000;
 }
  
@@ -58,15 +55,6 @@
   width: 240px;
   height: 20px;
 }
-
-/* .sidebar-filter:focus {
-  border: 2px solid lightblue;
-} */
-
-/* .filter-button {
-  height: 26px;
-  width: 50px;
-} */
 
 ol {
   list-style: none;

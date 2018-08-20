@@ -27,6 +27,14 @@ class SideBarContainer extends Component {
     this.props.updateDisplay(modifier);
   }
 
+  handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      this.toggleSideBar();
+  
+      e.preventDefault();
+    }
+  }
+
   handleClick(e) {
     this.toggleSideBar();
 
@@ -38,8 +46,10 @@ class SideBarContainer extends Component {
       <nav>
         <SideBarButton 
           handleClick={this.handleClick}
+          handleKeyDown={this.handleKeyDown}
           locations={this.props.locations} />
         <SideBar handleClick={this.handleClick}
+          handleKeyDown={this.handleKeyDown}
           sideBarVisible={this.state.sideBarVisible}
           locations={this.props.locations}
           selectLocation={this.props.selectLocation} 

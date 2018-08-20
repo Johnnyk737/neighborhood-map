@@ -54,6 +54,13 @@ class SideBar extends Component {
     this.props.selectLocation(location)
   }
 
+  updateLocationsKey = (keyCode, location) => {
+    //Using the enter key
+    if (keyCode === 13) {
+      this.props.selectLocation(location)
+    }
+  }
+
   render() {
     var visibility = "hide";
     let { filterLocations } = this.state
@@ -67,15 +74,19 @@ class SideBar extends Component {
           aria-label="Side bar Window"
            className={visibility}>
         <button
+          aria-label="sidebar close"
+          tabIndex="0"
           className="sidebar-close"
-          onMouseDown={this.props.handleClick}>X</button>
+          onMouseDown={this.props.handleClick}
+          onKeyDown={(event) => this.props.handleKeyDown(event)}>X</button>
         <div className="sidebar-container">
           <h2>Dublin Locations</h2>
             <input className="sidebar-filter"
               placeholder="Sight Location"
               id="filterVal"
-              role="Filter"
+              role="search"
               name="filter"
+              aria-label="filter"
               type="text"
               tabIndex="0"
               onChange={event => this.updateLocations(event.target.value)} />
@@ -85,7 +96,9 @@ class SideBar extends Component {
               {filterLocations.map((location) => (
                 <li key={location.id}
                     aria-label={location.title}
-                    onMouseDown={() => this.clickLocation(location.title)}>
+                    tabIndex="0"
+                    onMouseDown={() => this.clickLocation(location.title)}
+                    onKeyDown={event => this.updateLocationsKey(event.keyCode, location.title)}>
                   {location.title}
                 </li>
               ))}
